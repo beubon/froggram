@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="the frog that hopped onto TON blockchain and never looked back. ribbit." />
+  <meta property="og:title" content="$FROGGRAM — FrogGram on TON" />
+  <meta property="og:description" content="the frog that hopped onto TON blockchain and never looked back." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>$FROGGRAM — FrogGram on TON</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080d08;
+      --bg2:       #0d140d;
+      --green:     #4ade80;
+      --green-dim: #1f4d2c;
+      --text:      #d4e8d4;
+      --muted:     #5a7a5a;
+      --ton:       #0088cc;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* scanline */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px, transparent 3px,
+        rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ── HERO VIDEO ── */
+    .hero-video-wrap {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-video-wrap video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.75;
+    }
+
+    /* dark gradient overlay */
+    .hero-video-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(8,13,8,0.3) 0%,
+          rgba(8,13,8,0.1) 40%,
+          rgba(8,13,8,0.6) 80%,
+          rgba(8,13,8,1.0) 100%
+        );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+
+    .ton-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,136,204,0.15);
+      border: 1px solid rgba(0,136,204,0.35);
+      border-radius: 4px;
+      padding: 0.3rem 0.8rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: #60c8f0;
+      margin-bottom: 1.5rem;
+    }
+
+    .ton-dot {
+      width: 7px; height: 7px;
+      background: #0088cc;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #0088cc;
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity:1; } 50% { opacity:0.3; }
+    }
+
+    h1 {
+      font-family: 'Boogaloo', cursive;
+      font-size: clamp(4rem, 16vw, 9rem);
+      font-weight: 400;
+      color: var(--green);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      margin-bottom: 1.2rem;
+      text-shadow:
+        0 0 60px rgba(74,222,128,0.6),
+        0 0 120px rgba(74,222,128,0.3),
+        3px 3px 0 rgba(0,0,0,0.5);
+    }
+
+    @keyframes glow-pulse {
+      0%,100% { text-shadow: 0 0 60px rgba(74,222,128,0.5), 3px 3px 0 rgba(0,0,0,0.5); }
+      50%      { text-shadow: 0 0 100px rgba(74,222,128,0.8), 0 0 160px rgba(74,222,128,0.3), 3px 3px 0 rgba(0,0,0,0.5); }
+    }
+
+    h1 { animation: glow-pulse 3s ease-in-out infinite; }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--text);
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto 0.4rem;
+    }
+
+    .tagline-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); opacity:0.5; }
+      50%      { transform: translateX(-50%) translateY(6px); opacity:1; }
+    }
+
+    /* ── CONTENT ── */
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .content-section {
+      padding: 4rem 0 2rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--green-dim);
+      margin: 2.5rem 0;
+    }
+
+    .label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    /* truths */
+    .truths p {
+      font-size: 1rem;
+      color: var(--text);
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(74,222,128,0.08);
+      position: relative;
+      padding-left: 1.4rem;
+    }
+
+    .truths p::before {
+      content: '›';
+      position: absolute; left: 0;
+      color: var(--green);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .truths p:last-child { border-bottom: none; }
+
+    /* contract */
+    .ca-box {
+      background: var(--bg2);
+      border: 1px solid var(--green-dim);
+      border-radius: 6px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .ca-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .ca-addr {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--green);
+      word-break: break-all;
+    }
+
+    .ca-addr.pending { color: var(--muted); font-style: italic; }
+
+    .copy-btn {
+      background: var(--green-dim);
+      border: 1px solid var(--green);
+      color: var(--green);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.9rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .copy-btn:hover, .copy-btn.copied { background: var(--green); color: var(--bg); }
+
+    /* links */
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0 3rem;
+    }
+
+    .link-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--green-dim);
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .link-btn:hover { color: var(--green); border-color: var(--green); }
+
+    .link-btn.soon { color: var(--muted); cursor: default; pointer-events: none; }
+
+    .link-btn.topblast { color: #a78bfa; border-color: rgba(167,139,250,0.3); }
+    .link-btn.topblast:hover { color: #c4b5fd; border-color: #a78bfa; }
+
+    /* footer */
+    footer {
+      border-top: 1px solid var(--green-dim);
+      padding: 2rem 0 3rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    footer .big { font-family: 'Boogaloo', cursive; font-size: 1.8rem; color: var(--green); margin-bottom: 0.4rem; display: block; }
+
+    @media (max-width: 480px) {
+      .ca-box { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO VIDEO -->
+<div class="hero-video-wrap">
+  <video autoplay muted loop playsinline>
+    <source src="hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <div class="ton-badge">
+      <span class="ton-dot"></span>
+      TON Blockchain
+    </div>
+    <h1>$FROGGRAM</h1>
+    <p class="tagline">the frog that hopped onto TON and never looked back.</p>
+    <p class="tagline-sub">not a project. not a roadmap. just vibes, lily pads, and liquidity.</p>
+  </div>
+  <div class="scroll-hint">▼ ribbit ▼</div>
+</div>
+
+<!-- CONTENT -->
+<div class="wrap">
+  <div class="content-section">
+
+    <div class="truths">
+      <p>launched on topblast. fair and square.</p>
+      <p>frogs don't rug. frogs just hop.</p>
+      <p>100M supply. all in the pond.</p>
+      <p>no team wallet. no VC. just frogs.</p>
+      <p>ton chain is the swamp we choose.</p>
+      <p>ribbit means buy.</p>
+      <p>every dip is just a lily pad between moons.</p>
+      <p>frogs together strong.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="label">contract address</div>
+    <div class="ca-box">
+      <div>
+        <div class="ca-label">TON</div>
+        <div class="ca-addr" id="ca-display">EQAZpY8IP9Cqfkg12JpYplSgBYUFz9tf4P4Zg_kjs0R3ZzjQ</div>
+      </div>
+      <button class="copy-btn" id="copy-btn" onclick="copyCA()">copy</button>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="label">links</div>
+    <div class="links">
+      <a href="https://topblast.lol" target="_blank" rel="noopener" class="link-btn topblast">topblast.lol ↗</a>
+      <a href="https://t.me/FrogOnGram" target="_blank" rel="noopener" class="link-btn">telegram ↗</a>
+      <a href="https://x.com/frogongram" target="_blank" rel="noopener" class="link-btn">x / twitter ↗</a>
+      <a href="#" class="link-btn soon">dexscreener (soon)</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span class="big">$FROGGRAM</span>
+    <p>ribbit.</p>
+  </div>
+</footer>
+
+<script>
+  const CA = 'EQAZpY8IP9Cqfkg12JpYplSgBYUFz9tf4P4Zg_kjs0R3ZzjQ';
+  function copyCA() {
+    if (!CA) return;
+    navigator.clipboard.writeText(CA).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = 'copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
